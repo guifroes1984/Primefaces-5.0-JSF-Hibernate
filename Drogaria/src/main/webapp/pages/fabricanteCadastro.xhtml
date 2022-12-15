@@ -47,7 +47,9 @@
 					actionListener="#{fabricanteBean.excluir}" 
 					update=":msgGlobal" />
 				
-				<p:commandButton value="Editar"/>	
+				<p:commandButton value="Editar" 
+					actionListener="#{fabricanteBean.editar}"
+					update=":msgGlobal"/>	
 					
 				<p:commandButton value="Voltar"
 					action="/pages/fabricantePesquisa.xhtml" />

@@ -20,9 +20,6 @@ public class FabricanteBean {
 	private List<Fabricante> listaFabricantesFiltrados;
 
 	public Fabricante getFabricanteCadastro() {
-		if (fabricanteCadastro == null) {
-			fabricanteCadastro = new Fabricante();
-		}
 		return fabricanteCadastro;
 	}
 
@@ -87,6 +84,8 @@ public class FabricanteBean {
 				FabricanteDAO fabricanteDAO = new FabricanteDAO();
 				
 				fabricanteCadastro = fabricanteDAO.BuscarPorCodigo(codigo);
+			}else {
+				fabricanteCadastro = new Fabricante();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -104,6 +103,20 @@ public class FabricanteBean {
 		} catch (RuntimeException e) {
 			e.printStackTrace();
 			FacesUtil.adicionarMsgErro("Erro ao tentar remover o fabricante: " + e.getMessage());
+		}
+
+	}
+	
+	public void editar() {
+
+		try {
+			FabricanteDAO fabricanteDAO = new FabricanteDAO();
+			fabricanteDAO.editar(fabricanteCadastro);
+
+			FacesUtil.adicionarMsgInfo("Fabricante editado com sucesso.");
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+			FacesUtil.adicionarMsgErro("Erro ao tentar editar os dados do fabricante: " + e.getMessage());
 		}
 
 	}
