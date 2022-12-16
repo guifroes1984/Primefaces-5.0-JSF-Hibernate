@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
 
 <ui:composition template="/templates/modeloGeral.xhtml">
 	<ui:define name="metadata">
 		<f:metadata>
+			<f:viewParam name="fabacao" value="#{fabricanteBean.acao}" />
+			<f:viewParam name="fabcod" value="#{fabricanteBean.codigo}" />
+			
 			<f:event listener="#{fabricanteBean.carregarCadastro}" 
 				type="preRenderView" />
 		</f:metadata>
@@ -31,28 +34,32 @@
 
 				<p:outputLabel value="Descrição:" />
 				<p:inputText maxlength="50" size="30"
-					value="#{fabricanteBean.fabricanteCadastro.descricao}" />
+					value="#{fabricanteBean.fabricanteCadastro.descricao}" 
+					readonly="#{fabricanteBean.acao == 'Excluir'}"/>
 			</h:panelGrid>
 
 			<h:panelGrid columns="5">
 				<p:commandButton value="Novo"
 					actionListener="#{fabricanteBean.novo}"
-					update=":frmFabCad:pnlFabCadDados" />
+					update=":frmFabCad:pnlFabCadDados" 
+					rendered="#{fabricanteBean.acao == 'Novo'}" />
 					
 				<p:commandButton value="Salvar"
 					actionListener="#{fabricanteBean.salvar}"
-					update=":msgGlobal :frmFabCad:pnlFabCadDados" />
+					update=":msgGlobal :frmFabCad:pnlFabCadDados"
+					rendered="#{fabricanteBean.acao == 'Novo'}" />
 					
 				<p:commandButton value="Excluir" 
 					actionListener="#{fabricanteBean.excluir}" 
-					update=":msgGlobal" />
+					update=":msgGlobal"
+					rendered="#{fabricanteBean.acao == 'Excluir'}" outcome="/pages/fabricantePesquisa.xhtml"/>
 				
 				<p:commandButton value="Editar" 
 					actionListener="#{fabricanteBean.editar}"
-					update=":msgGlobal"/>	
+					update=":msgGlobal" 
+					rendered="#{fabricanteBean.acao == 'Editar'}" />	
 					
-				<p:commandButton value="Voltar"
-					action="/pages/fabricantePesquisa.xhtml" />
+				<p:button value="Voltar" outcome="/pages/fabricantePesquisa.xhtml" />
 			</h:panelGrid>
 
 		</h:form>

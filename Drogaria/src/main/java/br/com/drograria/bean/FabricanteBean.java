@@ -16,8 +16,11 @@ public class FabricanteBean {
 	private Fabricante fabricanteCadastro;
 
 	private List<Fabricante> listaFabricante;
-
 	private List<Fabricante> listaFabricantesFiltrados;
+	
+	private String acao;
+	private Long codigo;
+	
 
 	public Fabricante getFabricanteCadastro() {
 		return fabricanteCadastro;
@@ -42,9 +45,25 @@ public class FabricanteBean {
 	public void setListaFabricantesFiltrados(List<Fabricante> listaFabricantesFiltrados) {
 		this.listaFabricantesFiltrados = listaFabricantesFiltrados;
 	}
+	
+	public String getAcao() {
+		return acao;
+	}
+	
+	public void setAcao(String acao) {
+		this.acao = acao;
+	}
 
 	public void novo() {
 		fabricanteCadastro = new Fabricante();
+	}
+	
+	public Long getCodigo() {
+		return codigo;
+	}
+	
+	public void setCodigo(Long codigo) {
+		this.codigo = codigo;
 	}
 
 	public void salvar() {
@@ -76,14 +95,11 @@ public class FabricanteBean {
 	
 	public void carregarCadastro() {
 		try {
-			String valor = FacesUtil.getParam("fabcod");
 			
-			if (valor != null) {
-				Long codigo = Long.parseLong(valor);
-				
+			if (codigo != null) {
 				FabricanteDAO fabricanteDAO = new FabricanteDAO();
-				
 				fabricanteCadastro = fabricanteDAO.BuscarPorCodigo(codigo);
+				
 			}else {
 				fabricanteCadastro = new Fabricante();
 			}
@@ -100,6 +116,7 @@ public class FabricanteBean {
 			fabricanteDAO.excluir(fabricanteCadastro);
 
 			FacesUtil.adicionarMsgInfo("Fabricante removido com sucesso.");
+			
 		} catch (RuntimeException e) {
 			e.printStackTrace();
 			FacesUtil.adicionarMsgErro("Erro ao tentar remover o fabricante: " + e.getMessage());
