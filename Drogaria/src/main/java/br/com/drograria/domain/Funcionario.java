@@ -11,22 +11,25 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.br.CPF;
+
 @Entity
 @Table(name = "tbl_funcionarios")
 @NamedQueries({ @NamedQuery(name = "Funcionario.listar", query = "SELECT funcionario FROM Funcionario funcionario"),
-		@NamedQuery(name = "Funcionario.buscarPorCodigo", query = "SELECT funcionario FROM Funcionario funcionario WHERE funcionario.codigo = :codigo") })
+	@NamedQuery(name = "Funcionario.buscarPorCodigo", query = "SELECT funcionario FROM Funcionario funcionario WHERE funcionario.codigo = :codigo") })
 public class Funcionario implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "fun_codigo")
 	private Long codigo;
 
 	@Column(name = "fun_nome", length = 50, nullable = false)
 	private String nome;
-
+	
+	@CPF(message = "O CPF informado é inválido")
 	@Column(name = "fun_cpf", length = 14, nullable = false, unique = true)
 	private String cpf;
 

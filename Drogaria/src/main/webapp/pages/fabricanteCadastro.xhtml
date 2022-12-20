@@ -36,8 +36,9 @@
 				<p:inputText maxlength="50" size="30"
 					value="#{fabricanteBean.fabricanteCadastro.descricao}"
 					 required="true" requiredMessage="Informe o nome" id="idnomepessoa"
+					 validatorMessage="Nome deve ter entre 5 e 50 letras"
 					readonly="#{fabricanteBean.acao == 'Excluir'}">
-					<p:watermark for="idnomepessoa"/>
+					<f:validateLength minimum="5" maximum="50"/>
 				</p:inputText>
 			</h:panelGrid>
 

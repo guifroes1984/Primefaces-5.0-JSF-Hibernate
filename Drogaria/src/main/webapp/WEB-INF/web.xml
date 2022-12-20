@@ -28,9 +28,15 @@
 		<param-name>primefaces.THEME</param-name>
 		<param-value>ui-lightness</param-value>
 	</context-param>
-	
+
 	<!-- Carregamento do Contexto do Hibernate -->
 	<listener>
 		<listener-class>br.com.drograria.util.ContextListener</listener-class>
 	</listener>
+
+	<context-param>
+		<param-name>javax.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL</param-name>
+		<param-value>true</param-value>
+	</context-param>
+
 </web-app>

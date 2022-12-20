@@ -70,6 +70,7 @@ public class FuncionarioDAO {
 		return funcionario;
 
 	}
+	
 
 	public void excluir(Funcionario funcionario) {
 
@@ -113,5 +114,7 @@ public class FuncionarioDAO {
 		}
 
 	}
+
+	
 
 }

@@ -27,8 +27,8 @@ public class Fabricante implements Serializable {
 	@Column(name = "fab_codigo")
 	private Long codigo;
 	
-	@NotEmpty(message = "O campo descrição é obrigatório")
-	@Size(min = 5, max = 50, message = "Nome deve ter entre 5 e 50 letras")
+	//@NotEmpty(message = "O campo descrição é obrigatório")
+	//@Size(min = 5, max = 50, message = "Nome deve ter entre 5 e 50 letras")
 	@Column(name = "fab_descricao", length = 50, nullable = false)
 	private String descricao;
 
