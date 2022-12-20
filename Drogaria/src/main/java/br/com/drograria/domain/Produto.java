@@ -2,6 +2,7 @@ package br.com.drograria.domain;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,10 +23,8 @@ import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "tbl_produtos")
-@NamedQueries({ 
-	@NamedQuery(name = "Produto.listar", query = "SELECT produto FROM Produto produto"), 
-	@NamedQuery(name = "Produto.buscarPorCodigo", query = "SELECT produto FROM Produto produto WHERE codigo = :codigo")	
-})
+@NamedQueries({ @NamedQuery(name = "Produto.listar", query = "SELECT produto FROM Produto produto"),
+		@NamedQuery(name = "Produto.buscarPorCodigo", query = "SELECT produto FROM Produto produto WHERE codigo = :codigo") })
 public class Produto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -34,20 +33,22 @@ public class Produto implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "pro_codigo")
 	private Long codigo;
-	
+
 	@NotEmpty(message = "O campo descrição é obrigatório")
 	@Column(name = "pro_descricao", length = 50, nullable = false)
 	private String descricao;
-	
-	//@NotNull(message = "O campo preço é obrigatório")
-	//@DecimalMin(value = "0.00", message = "Infrome um valor maior ou igual a zero para o campo preço")
-	//@DecimalMax(value = "99999.99", message = "Informe um valor menor que 100 mil para o campo preço")
+
+	// @NotNull(message = "O campo preço é obrigatório")
+	// @DecimalMin(value = "0.00", message = "Infrome um valor maior ou igual a zero
+	// para o campo preço")
+	// @DecimalMax(value = "99999.99", message = "Informe um valor menor que 100 mil
+	// para o campo preço")
 	@Column(name = "pro_preco", precision = 7, scale = 2, nullable = false)
 	private BigDecimal preco;
 
 	@Column(name = "pro_quantidade", nullable = false)
 	private Integer quantidade;
-	
+
 	@NotNull(message = "O campo fabricante é obrigatório")
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "tbl_fabricantes_fab_codigo", referencedColumnName = "fab_codigo", nullable = false)
@@ -97,6 +98,23 @@ public class Produto implements Serializable {
 	public String toString() {
 		return "Produto [codigo=" + codigo + ", descricao=" + descricao + ", preco=" + preco + ", quantidade="
 				+ quantidade + ", fabricante=" + fabricante + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(codigo);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Produto other = (Produto) obj;
+		return Objects.equals(codigo, other.codigo);
 	}
 
 }

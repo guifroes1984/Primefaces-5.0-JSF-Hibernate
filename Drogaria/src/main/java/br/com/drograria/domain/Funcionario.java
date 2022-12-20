@@ -1,6 +1,7 @@
 package br.com.drograria.domain;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,7 +17,7 @@ import org.hibernate.validator.constraints.br.CPF;
 @Entity
 @Table(name = "tbl_funcionarios")
 @NamedQueries({ @NamedQuery(name = "Funcionario.listar", query = "SELECT funcionario FROM Funcionario funcionario"),
-	@NamedQuery(name = "Funcionario.buscarPorCodigo", query = "SELECT funcionario FROM Funcionario funcionario WHERE funcionario.codigo = :codigo") })
+		@NamedQuery(name = "Funcionario.buscarPorCodigo", query = "SELECT funcionario FROM Funcionario funcionario WHERE funcionario.codigo = :codigo") })
 public class Funcionario implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -28,7 +29,7 @@ public class Funcionario implements Serializable {
 
 	@Column(name = "fun_nome", length = 50, nullable = false)
 	private String nome;
-	
+
 	@CPF(message = "O CPF informado é inválido")
 	@Column(name = "fun_cpf", length = 14, nullable = false, unique = true)
 	private String cpf;
@@ -83,6 +84,23 @@ public class Funcionario implements Serializable {
 	public String toString() {
 		return "Funcionario [codigo=" + codigo + ", nome=" + nome + ", cpf=" + cpf + ", senha=" + senha + ", funcao="
 				+ funcao + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(codigo);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Funcionario other = (Funcionario) obj;
+		return Objects.equals(codigo, other.codigo);
 	}
 
 }

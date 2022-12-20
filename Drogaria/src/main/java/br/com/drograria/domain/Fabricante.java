@@ -1,6 +1,7 @@
 package br.com.drograria.domain;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,9 +27,9 @@ public class Fabricante implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "fab_codigo")
 	private Long codigo;
-	
-	//@NotEmpty(message = "O campo descrição é obrigatório")
-	//@Size(min = 5, max = 50, message = "Nome deve ter entre 5 e 50 letras")
+
+	// @NotEmpty(message = "O campo descrição é obrigatório")
+	// @Size(min = 5, max = 50, message = "Nome deve ter entre 5 e 50 letras")
 	@Column(name = "fab_descricao", length = 50, nullable = false)
 	private String descricao;
 
@@ -51,6 +52,23 @@ public class Fabricante implements Serializable {
 	@Override
 	public String toString() {
 		return "Fabricante [codigo=" + codigo + ", descricao=" + descricao + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(codigo);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Fabricante other = (Fabricante) obj;
+		return Objects.equals(codigo, other.codigo);
 	}
 
 }

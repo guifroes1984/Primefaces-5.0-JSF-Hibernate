@@ -61,6 +61,7 @@
 				
 				<p:outputLabel value="Fabricante:"/>
 				<p:selectOneMenu value="#{produtoBean.produtoCadastro.fabricante}"
+					converter="fabricanteConverter"
 					required="true" requiredMessage="O campo fabricante é obrigatório">
 					<f:selectItem itemValue="" itemLabel="--[Selecione um fabricante]--"/>
 					<f:selectItems value="#{produtoBean.listaFabricantes}" var="fabricante"

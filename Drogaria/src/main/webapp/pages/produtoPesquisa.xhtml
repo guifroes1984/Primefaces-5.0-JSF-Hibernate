@@ -49,6 +49,12 @@
 				<p:column headerText="Quantidade">
 					<h:outputText value="#{produto.quantidade}"/>
 				</p:column>
+				
+				<p:column headerText="Fabricante" 
+					 filterBy="#{produto.fabricante.descricao}" 
+					 sortBy="#{produto.fabricante.descricao}">
+					<h:outputText value="#{produto.fabricante.descricao}"/>
+				</p:column>
 
 				<p:column headerText="Opções">
 					<p:button value="Excluir" outcome="/pages/produtoCadastro.xhtml">
