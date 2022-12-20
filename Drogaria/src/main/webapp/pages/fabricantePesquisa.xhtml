@@ -33,8 +33,10 @@
 					</p:button>
 				</f:facet>
 				
-				<p:column headerText="Código">
+				<p:column headerText="Código" style="width: 5%;">
+				<center>
 					<h:outputText value="#{fabricante.codigo}"/>
+				</center>
 				</p:column>
 
 				<p:column headerText="Descrição" filterBy="#{fabricante.descricao}" 
@@ -43,16 +45,17 @@
 				</p:column>
 
 				<p:column headerText="Opções">
-					<p:button value="Excluir" outcome="/pages/fabricanteCadastro.xhtml">
+				<center>
+					<p:button value="Excluir" outcome="/pages/fabricanteCadastro.xhtml" style="width: 20%; margin-right: 10%;">
 						<f:param name="fabacao" value="Excluir" />
 						<f:param name="fabcod" value="#{fabricante.codigo}"/>
 					</p:button>
 					
-					<p:button value="Editar" outcome="/pages/fabricanteCadastro.xhtml">
+					<p:button value="Editar" outcome="/pages/fabricanteCadastro.xhtml" style="width: 20%;">
 						<f:param name="fabacao" value="Editar" />
 						<f:param name="fabcod" value="#{fabricante.codigo}"/>
 					</p:button>
-					
+				</center>
 				</p:column>
 			</p:dataTable>
 		</h:form>

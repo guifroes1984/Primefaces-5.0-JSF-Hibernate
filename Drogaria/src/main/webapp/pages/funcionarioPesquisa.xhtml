@@ -33,8 +33,10 @@
 					</p:button>
 				</f:facet>
 				
-				<p:column headerText="Código">
+				<p:column headerText="Código" style="width: 5%;">
+				<center>
 					<h:outputText value="#{funcionario.codigo}"/>
+				</center>
 				</p:column>
 				
 				<p:column headerText="Nome" filterBy="#{funcionario.nome}"
@@ -42,21 +44,27 @@
 					<h:outputText value="#{funcionario.nome}"/>
 				</p:column>
 				
-				<p:column headerText="CPF" filterBy="#{funcionario.cpf}"
+				<p:column headerText="CPF" filterBy="#{funcionario.cpf}" style="width: 15%;"
 					sortBy="#{funcionario.cpf}">
-					<h:outputText value="#{funcionario.cpf}"/>
+					<center>
+						<h:outputText value="#{funcionario.cpf}"/>
+					</center>
 				</p:column>
 				
-				<p:column headerText="Função" filterBy="#{funcionario.funcao}"
+				<p:column headerText="Função" filterBy="#{funcionario.funcao}" style="width: 15%;"
 					sortBy="#{funcionario.funcao}">
+				<center>
 					<h:outputText value="#{funcionario.funcao}"/>
+				</center>
 				</p:column>
 				
-				<p:column headerText="Opções">
+				<p:column headerText="Opções" style="width: 15%; margin-right: 10%;">
+					<center>
 					<p:button value="Excluir" outcome="/pages/funcionarioCadastro.xhtml">
 						<f:param name="funacao" value="Excluir"/>
 						<f:param name="funcod" value="#{funcionario.codigo}"/>
 					</p:button>
+					</center>
 				</p:column>
 			</p:dataTable>
 		</h:form>
