@@ -5,7 +5,9 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
+import br.com.drogaria.dao.FabricanteDAO;
 import br.com.drogaria.dao.ProdutoDAO;
+import br.com.drograria.domain.Fabricante;
 import br.com.drograria.domain.Produto;
 import br.com.drograria.util.FacesUtil;
 
@@ -21,6 +23,16 @@ public class ProdutoBean {
 	private String acao;
 	private Long codigo;
 	
+	private List<Fabricante> listaFabricantes;
+	
+	public List<Fabricante> getListaFabricantes() {
+		return listaFabricantes;
+	}
+
+	public void setListaFabricantes(List<Fabricante> listaFabricantes) {
+		this.listaFabricantes = listaFabricantes;
+	}
+
 	public Produto getProdutoCadastro() {
 		return produtoCadastro;
 	}
@@ -102,6 +114,9 @@ public class ProdutoBean {
 			}else {
 				produtoCadastro = new Produto();
 			}
+			
+			FabricanteDAO fabricanteDAO = new FabricanteDAO();
+			listaFabricantes = fabricanteDAO.listar();
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesUtil.adicionarMsgErro("Erro ao tentar obter os dados do fabricante: " + e.getMessage());

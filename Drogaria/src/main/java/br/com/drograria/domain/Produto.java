@@ -47,7 +47,8 @@ public class Produto implements Serializable {
 
 	@Column(name = "pro_quantidade", nullable = false)
 	private Integer quantidade;
-
+	
+	@NotNull(message = "O campo fabricante é obrigatório")
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "tbl_fabricantes_fab_codigo", referencedColumnName = "fab_codigo", nullable = false)
 	private Fabricante fabricante;
