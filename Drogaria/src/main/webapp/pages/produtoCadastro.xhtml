@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+
+<ui:composition template="/templates/modeloGeral.xhtml">
+	<ui:define name="metadata">
+		<f:metadata>
+			<f:viewParam name="proacao" value="#{produtoBean.acao}" />
+			<f:viewParam name="procod" value="#{produtoBean.codigo}" />
+			
+			<f:event listener="#{produtoBean.carregarCadastro}" 
+				type="preRenderView" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="conteudo">
+		<h:form id="ProCad">
+
+			<p:toolbar>
+				<f:facet name="left">
+					<h:outputText value="Produtos" />
+				</f:facet>
+			</p:toolbar>
+
+			<h:panelGrid id="ProCadDados" columns="2">
+				<p:outputLabel value="Código" />
+				<p:inputText size="10" readonly="true"
+					value="#{produto.produtoCadastro.codigo}" />
+
+				<p:outputLabel value="Descrição:" for="prodDesc"/>
+				<p:inputText maxlength="50" size="30"
+					value="#{produtoBean.produtoCadastro.descricao}"
+					 required="true" requiredMessage="O campo descrição é obrigatório" id="prodDesc"
+					 validatorMessage="Tamanho inválido para o campo descrição (5 - 50)"
+					readonly="#{produtoBean.acao == 'Excluir'}">
+					<f:validateLength minimum="5" maximum="50"/>
+				</p:inputText>
+				
+				<p:outputLabel value="Preço:" for="precoProd"/>
+				<p:inputText size="20"
+					value="#{produtoBean.produtoCadastro.preco}"
+					 required="true" requiredMessage="O campo preço é obrigatório" id="precoProd"
+					 validatorMessage="Preço deve ter entre R$ 0.00 e R$ 10.000,00 reais"
+					readonly="#{produtoBean.acao == 'Excluir'}">
+					<f:validateLength minimum="0" maximum="99999"/>
+				</p:inputText>
+			
+			<p:outputLabel value="Quantidade" for="qtdProd"/>
+				<p:inputText size="20"
+					value="#{produtoBean.produtoCadastro.quantidade}"
+					 required="true" requiredMessage="O campo quantidade é obrigatório" id="qtdProd"
+					 validatorMessage="Informe um valor menor que dez mil"
+					readonly="#{produtoBean.acao == 'Excluir'}">
+					<f:validateLength minimum="0" maximum="9999"/>
+				</p:inputText>
+			</h:panelGrid>
+
+			<h:panelGrid columns="5">
+				<p:commandButton value="Novo"
+					actionListener="#{produtoBean.novo}"
+					update=":ProCad:ProCadDados" 
+					rendered="#{produtoBean.acao == 'Novo'}" />
+					
+				<p:commandButton value="Salvar"
+					actionListener="#{produtoBean.salvar}"
+					update=":msgGlobal :ProCad:ProCadDados"
+					rendered="#{produtoBean.acao == 'Novo'}" />
+					
+				<p:commandButton value="Excluir" 
+					actionListener="#{produtoBean.excluir}" update=":msgGlobal"
+					rendered="#{produtoBean.acao == 'Excluir'}" />
+				
+				<p:commandButton value="Editar" 
+					actionListener="#{produtoBean.editar}" update=":msgGlobal" 
+					rendered="#{produtoBean.acao == 'Editar'}" />	
+					
+				<p:button value="Voltar" outcome="/pages/produtoPesquisa.xhtml" />
+			</h:panelGrid>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

@@ -14,6 +14,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.NotNull;
+
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "tbl_produtos")
@@ -29,10 +34,14 @@ public class Produto implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "pro_codigo")
 	private Long codigo;
-
+	
+	@NotEmpty(message = "O campo descrição é obrigatório")
 	@Column(name = "pro_descricao", length = 50, nullable = false)
 	private String descricao;
-
+	
+	//@NotNull(message = "O campo preço é obrigatório")
+	//@DecimalMin(value = "0.00", message = "Infrome um valor maior ou igual a zero para o campo preço")
+	//@DecimalMax(value = "99999.99", message = "Informe um valor menor que 100 mil para o campo preço")
 	@Column(name = "pro_preco", precision = 7, scale = 2, nullable = false)
 	private BigDecimal preco;
 
