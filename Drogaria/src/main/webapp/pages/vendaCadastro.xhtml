@@ -5,34 +5,29 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-
-
+	
 <ui:composition template="/templates/modeloGeral.xhtml">
 	<ui:define name="metadata">
 		<f:metadata>
-			<f:event listener="#{produtoBean.carregarPesquisa}" type="preRenderView" />
+			<f:event listener="#{vendaBean.carregarProdutos}" type="preRenderView"/>
 		</f:metadata>
 	</ui:define>
 	
 	<ui:define name="conteudo">
-	
 		<h:form>
 			<p:toolbar>
 				<f:facet name="left">
-					<h:outputText value="Produtos" />
+					<h:outputText value="Vendas" />
 				</f:facet>
 			</p:toolbar>
-
-			<p:dataTable emptyMessage="Nenhum registro encontrado"
-				value="#{produtoBean.listaProdutos}" 
-				filteredValue="#{produtoBean.listaProdutoFiltrados}"
-				var="produto" rows="8" paginator="true">
+			
+			<p:separator/>
 				
-				<f:facet name="footer">
-					<p:button value="Novo" outcome="/pages/produtoCadastro.xhtml">
-						<f:param name="proacao" value="Novo" />
-					</p:button>
-				</f:facet>
+				<p:dataTable emptyMessage="Nenhum registro encontrado"
+				value="#{vendaBean.listaProdutos}" 
+				filteredValue="#{vendaBean.listaProdutoFiltrados}"
+				var="produto" rows="4" paginator="true">
+				
 				
 					<p:column headerText="Código" style="width: 5%;">
 						<center>
@@ -64,20 +59,14 @@
 					<h:outputText value="#{produto.fabricante.descricao}"/>
 				</p:column>
 
-				<p:column headerText="Opções" style="width: 15%;">
-					<p:button value="Excluir" outcome="/pages/produtoCadastro.xhtml">
-						<f:param name="proacao" value="Excluir" />
-						<f:param name="procod" value="#{produto.codigo}"/>
-					</p:button>
-					
-					<p:button value="Editar" outcome="/pages/produtoCadastro.xhtml">
-						<f:param name="proacao" value="Editar" />
-						<f:param name="procod" value="#{produto.codigo}"/>
-					</p:button>
-					
+				<p:column headerText="Opções" style="width: 10%;">
+				<center>
+					<p:commandButton value="Adicionar"/>
+				</center>
 				</p:column>
 			</p:dataTable>
 		</h:form>
 	</ui:define>
 </ui:composition>
+
 </html>
