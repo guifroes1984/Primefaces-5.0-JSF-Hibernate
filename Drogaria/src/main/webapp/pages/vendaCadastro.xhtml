@@ -14,7 +14,7 @@
 	</ui:define>
 	
 	<ui:define name="conteudo">
-		<h:form>
+		<h:form id="frmVendaCad">
 			<p:toolbar>
 				<f:facet name="left">
 					<h:outputText value="Vendas" />
@@ -26,7 +26,7 @@
 				<p:dataTable emptyMessage="Nenhum registro encontrado"
 				value="#{vendaBean.listaProdutos}" 
 				filteredValue="#{vendaBean.listaProdutoFiltrados}"
-				var="produto" rows="4" paginator="true">
+				var="produto" rows="3" paginator="true">
 				
 				
 					<p:column headerText="Código" style="width: 5%;">
@@ -61,7 +61,44 @@
 
 				<p:column headerText="Opções" style="width: 10%;">
 				<center>
-					<p:commandButton value="Adicionar"/>
+					<p:commandButton value="Adicionar" actionListener="#{vendaBean.adicionar(produto)}" 
+					update=":frmVendaCad:tblItens" />
+				</center>
+				</p:column>
+			</p:dataTable>
+			
+			<p:separator/>
+				
+				<p:dataTable id="tblItens" emptyMessage="Nenhum registro encontrado"
+				value="#{vendaBean.listaItens}" 
+				var="item" rows="3" paginator="true">
+				
+				
+				<p:column headerText="Produto">
+					<center>
+						<h:outputText value="#{item.produto.descricao}"/>
+					</center>
+				</p:column>
+				
+				<p:column headerText="Fabricante">
+					<center>
+						<h:outputText value="#{item.produto.fabricante.descricao}"/>
+					</center>
+				</p:column>
+				
+				<p:column headerText="Quantidade" >
+					<h:outputText value="#{item.quantidade}"/>
+				</p:column>
+				
+				<p:column headerText="Valor Parcial">
+				<center>
+					<h:outputText value="#{item.valor}"/>
+				</center>
+				</p:column>
+
+				<p:column headerText="Opções">
+				<center>
+					<p:commandButton value="Remover"/>
 				</center>
 				</p:column>
 			</p:dataTable>
