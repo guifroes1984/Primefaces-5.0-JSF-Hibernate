@@ -18,7 +18,7 @@ public class VendaBean {
 
 	private List<Produto> listaProdutos;
 	private List<Produto> listaProdutoFiltrados;
-	
+
 	private List<Item> listaItens;
 
 	public List<Produto> getListaProdutos() {
@@ -36,44 +36,44 @@ public class VendaBean {
 	public void setListaProdutoFiltrados(List<Produto> listaProdutoFiltrados) {
 		this.listaProdutoFiltrados = listaProdutoFiltrados;
 	}
-	
+
 	public List<Item> getListaItens() {
 		if (listaItens == null) {
 			listaItens = new ArrayList<>();
 		}
 		return listaItens;
 	}
-	
+
 	public void setListaItens(List<Item> listaItens) {
 		this.listaItens = listaItens;
 	}
-	
+
 	public void carregarProdutos() {
 		try {
 			ProdutoDAO produtoDAO = new ProdutoDAO();
 			listaProdutos = produtoDAO.listar();
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			FacesUtil.adicionarMsgErro("Erro ao tentar listar os produtos: " + e.getMessage());
 		}
 	}
-	
+
 	public void adicionar(Produto produto) {
-		
+
 		int posicaoEncontrada = -1;
-		
+
 		for (int pos = 0; pos < listaItens.size() && posicaoEncontrada < 0; pos++) {
 			Item itemTemp = listaItens.get(pos);
-			
+
 			if (itemTemp.getProduto().equals(produto)) {
 				posicaoEncontrada = pos;
 			}
 		}
-		
+
 		Item item = new Item();
 		item.setProduto(produto);
-		
+
 		if (posicaoEncontrada < 0) {
 			item.setQuantidade(1);
 			item.setValor(produto.getPreco());
@@ -83,6 +83,22 @@ public class VendaBean {
 			item.setQuantidade(itemTemp.getQuantidade() + 1);
 			item.setValor(produto.getPreco().multiply(new BigDecimal(item.getQuantidade())));
 			listaItens.set(posicaoEncontrada, item);
+		}
+	}
+
+	public void remover(Item item) {
+		int posicaoEncontrada = -1;
+
+		for (int pos = 0; pos < listaItens.size() && posicaoEncontrada < 0; pos++) {
+			Item itemTemp = listaItens.get(pos);
+
+			if (itemTemp.getProduto().equals(item.getProduto())) {
+				posicaoEncontrada = pos;
+			}
+		}
+		
+		if (posicaoEncontrada > -1) {
+			listaItens.remove(posicaoEncontrada);
 		}
 	}
 

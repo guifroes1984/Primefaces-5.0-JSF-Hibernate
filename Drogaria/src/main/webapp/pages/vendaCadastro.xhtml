@@ -98,9 +98,11 @@
 				</center>
 				</p:column>
 
-				<p:column headerText="Opções">
+				<p:column headerText="Opções" style="width: 10%">
 				<center>
-					<p:commandButton value="Remover"/>
+					<p:commandButton value="Remover" 
+						actionListener="#{vendaBean.remover(item)}" 
+						update=":frmVendaCad:tblItens"/>
 				</center>
 				</p:column>
 			</p:dataTable>
