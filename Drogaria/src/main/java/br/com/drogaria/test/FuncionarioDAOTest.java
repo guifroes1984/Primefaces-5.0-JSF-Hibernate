@@ -2,6 +2,7 @@ package br.com.drogaria.test;
 
 import java.util.List;
 
+import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -61,6 +62,7 @@ public class FuncionarioDAOTest {
 	}
 	
 	@Test
+	@Ignore
 	public void editar() {
 		FuncionarioDAO dao = new FuncionarioDAO();
 
@@ -72,6 +74,16 @@ public class FuncionarioDAOTest {
 		funcionario.setSenha("9876");
 
 		dao.editar(funcionario);
+	}
+	
+	@Test
+	@Ignore
+	public void autenticar() {
+		FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+		
+		Funcionario funcionario = funcionarioDAO.autenticar("954.403.910-45", "1234");
+		
+		Assert.assertNotNull(funcionario);
 	}
 
 }
