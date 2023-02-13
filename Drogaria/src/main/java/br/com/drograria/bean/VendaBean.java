@@ -10,6 +10,7 @@ import javax.faces.bean.ViewScoped;
 import br.com.drogaria.dao.ProdutoDAO;
 import br.com.drograria.domain.Item;
 import br.com.drograria.domain.Produto;
+import br.com.drograria.domain.Venda;
 import br.com.drograria.util.FacesUtil;
 
 @ManagedBean
@@ -18,7 +19,8 @@ public class VendaBean {
 
 	private List<Produto> listaProdutos;
 	private List<Produto> listaProdutoFiltrados;
-
+	
+	private Venda vendaCadastro;
 	private List<Item> listaItens;
 
 	public List<Produto> getListaProdutos() {
@@ -35,6 +37,18 @@ public class VendaBean {
 
 	public void setListaProdutoFiltrados(List<Produto> listaProdutoFiltrados) {
 		this.listaProdutoFiltrados = listaProdutoFiltrados;
+	}
+	
+	public Venda getVendaCadastro() {
+		if (vendaCadastro == null) {
+			vendaCadastro = new Venda();
+			vendaCadastro.setValor(new BigDecimal("0.00"));
+		}
+		return vendaCadastro;
+	}
+	
+	public void setVendaCadastro(Venda vendaCadastro) {
+		this.vendaCadastro = vendaCadastro;
 	}
 
 	public List<Item> getListaItens() {
@@ -84,6 +98,8 @@ public class VendaBean {
 			item.setValor(produto.getPreco().multiply(new BigDecimal(item.getQuantidade())));
 			listaItens.set(posicaoEncontrada, item);
 		}
+		
+		vendaCadastro.setValor(vendaCadastro.getValor().add(produto.getPreco()));
 	}
 
 	public void remover(Item item) {
@@ -99,6 +115,7 @@ public class VendaBean {
 		
 		if (posicaoEncontrada > -1) {
 			listaItens.remove(posicaoEncontrada);
+			vendaCadastro.setValor(vendaCadastro.getValor().subtract(item.getValor()));
 		}
 	}
 
