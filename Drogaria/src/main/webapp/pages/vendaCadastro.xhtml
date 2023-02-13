@@ -108,8 +108,30 @@
 			</p:dataTable>
 			
 			<p:separator />
-			<h:outputText id="txtVendaValorTotal" value="Valor Total: #{vendaBean.vendaCadastro.valor}"/>
+			<h:panelGrid columns="1">
+				<h:outputText id="txtVendaValorTotal" 
+					value="Valor Total: #{vendaBean.vendaCadastro.valor}"/>
+				<p:commandButton value="Finalizar Venda" 
+					onclick="PF('wvDlgFinVenda').show();" />
+			</h:panelGrid>
 		</h:form>
+		
+		<p:dialog closable="true" draggable="true" modal="true" 
+		resizable="false" header="Dados da Venda"
+		widgetVar="wvDlgFinVenda"
+		appendTo="@(body)">
+			<h:form>
+				<h:panelGrid columns="1">
+					<h:outputText value="Horário:" />
+					<h:outputText value="Funcionário" />
+					<h:outputText value="Valor Total:" />
+				</h:panelGrid>
+				<h:panelGrid columns="2">
+					<p:commandButton value="Salvar"/>
+					<p:commandButton value="Voltar" onclick="PF('wvDlgFinVenda').hide();"/>
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
 	</ui:define>
 </ui:composition>
 
