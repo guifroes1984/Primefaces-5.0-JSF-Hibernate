@@ -111,20 +111,30 @@
 			<h:panelGrid columns="1">
 				<h:outputText id="txtVendaValorTotal" 
 					value="Valor Total: #{vendaBean.vendaCadastro.valor}"/>
-				<p:commandButton value="Finalizar Venda" 
-					onclick="PF('wvDlgFinVenda').show();" />
+				<p:commandButton value="Finalizar Venda"
+					actionListener="#{vendaBean.carregarDadosVenda}"
+					oncomplete="PF('wvDlgFinVenda').show();" 
+					update=":frmFinVenda:pnlDadosFinVenda"/>
 			</h:panelGrid>
 		</h:form>
 		
 		<p:dialog closable="true" draggable="true" modal="true" 
-		resizable="false" header="Dados da Venda"
-		widgetVar="wvDlgFinVenda"
+		resizable="false" header="Dados da Venda" widgetVar="wvDlgFinVenda"
 		appendTo="@(body)">
-			<h:form>
-				<h:panelGrid columns="1">
+			<h:form id="frmFinVenda">
+				<h:panelGrid id="pnlDadosFinVenda" columns="2">
 					<h:outputText value="Horário:" />
+					<h:outputText value="#{vendaBean.vendaCadastro.horario}">
+						<f:convertDateTime pattern="dd/MM/yyyy HH:mm" 
+							timeZone="America/Sao_Paulo"/>
+					</h:outputText>
+					
 					<h:outputText value="Funcionário" />
+					<h:outputText value="#{vendaBean.vendaCadastro.funcionario.nome}"/>
+					
 					<h:outputText value="Valor Total:" />
+					<h:outputText value="#{vendaBean.vendaCadastro.valor}"/>
+					
 				</h:panelGrid>
 				<h:panelGrid columns="2">
 					<p:commandButton value="Salvar"/>
