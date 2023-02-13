@@ -9,7 +9,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import br.com.drogaria.dao.FuncionarioDAO;
+import br.com.drogaria.dao.ItemDAO;
 import br.com.drogaria.dao.ProdutoDAO;
+import br.com.drogaria.dao.VendaDAO;
 import br.com.drograria.domain.Funcionario;
 import br.com.drograria.domain.Item;
 import br.com.drograria.domain.Produto;
@@ -128,6 +130,31 @@ public class VendaBean {
 		FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
 		Funcionario funcionario = funcionarioDAO.BuscarPorCodigo(10L);
 		vendaCadastro.setFuncionario(funcionario);
+	}
+	
+	public void salvar() {
+		try {
+			VendaDAO vendaDAO = new VendaDAO();
+			
+			Long codigoVenda = vendaDAO.salvar(vendaCadastro);
+			Venda vendaFK = vendaDAO.buscarPorCodigo(codigoVenda);
+			
+			for (Item item : listaItens) {
+				item.setVenda(vendaFK);
+				
+				ItemDAO itemDAO = new ItemDAO();
+				itemDAO.salvar(item);
+			}
+			
+			vendaCadastro = new Venda();
+			vendaCadastro.setValor(new BigDecimal("0.00"));
+			
+			listaItens = new ArrayList<Item>();
+			FacesUtil.adicionarMsgInfo("Venda salva com sucesso!");
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesUtil.adicionarMsgErro("Erro ao tentar salvar a venda: " + e.getMessage());
+		}
 	}
 
 }

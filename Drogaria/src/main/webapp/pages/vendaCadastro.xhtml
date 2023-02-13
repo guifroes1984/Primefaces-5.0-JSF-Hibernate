@@ -137,8 +137,12 @@
 					
 				</h:panelGrid>
 				<h:panelGrid columns="2">
-					<p:commandButton value="Salvar"/>
-					<p:commandButton value="Voltar" onclick="PF('wvDlgFinVenda').hide();"/>
+					<p:commandButton value="Salvar"
+						actionListener="#{vendaBean.salvar}"
+						update=":msgGlobal :frmVendaCad:tblItens :frmVendaCad:txtVendaValorTotal"
+						oncomplete="PF('wvDlgFinVenda').hide();"/>
+					<p:commandButton value="Voltar" 
+						onclick="PF('wvDlgFinVenda').hide();"/>
 				</h:panelGrid>
 			</h:form>
 		</p:dialog>
